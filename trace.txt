@@ -1,0 +1,29 @@
+strPath = "C:\Users\cuongnm24\Documents\My Received Files\20170628\UT Report Tool_Lam\output\testcase\"
+Set objExcel = CreateObject("Excel.Application")
+objExcel.Visible = True
+objExcel.DisplayAlerts = False
+Dim ws, wb
+'Set ws = objExcel.Workbooks.Open("C:\Users\BiKunTin\Desktop\test.xlsx")
+'objExcel.Application.Run "C:\Users\BiKunTin\Desktop\test2.xlsm!sheet2.CommandButton1_Click"
+Set objFso = CreateObject("Scripting.FileSystemObject")
+Set objFolder = objFso.GetFolder (strPath)
+For Each objFile In objFolder.Files
+If objFso.GetExtensionName (objFile.Path) = "xlsx" Then
+Set objWorkbook = objExcel.Workbooks.Open(objFile.Path)
+	'For Each Sht In objWorkbook.Worksheets
+Set wb = objExcel.Workbooks.Open("C:\Users\cuongnm24\Documents\My Received Files\20170628\UT Report Tool_Lam\output\report_testcase.xlsx")
+	'wb.Sheets.Add.Name = Sht.Name
+objWorkbook.Worksheets(2).Copy wb.Sheets(1)
+Dim k
+k = wb.Sheets.Count
+For i = k To 3 Step -1
+    wb.Sheets(i).Delete
+Next
+wb.Save
+wb.Close
+	'Next
+'MsgBox "Checked"
+objWorkbook.Close True
+End If
+Next
+objExcel.Quit

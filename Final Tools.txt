@@ -1,0 +1,18 @@
+Set objExcel = CreateObject("Excel.Application")
+dim fso: set fso = CreateObject("Scripting.FileSystemObject")
+dim path,ws
+path = fso.GetAbsolutePathName(".")
+MsgBox path
+MsgBox count1
+objExcel.Workbooks.Open(path + "\tools\MIB3.xlsm")
+objExcel.Application.Visible = False
+objExcel.Application.Run "Make_Report"
+objExcel.DisplayAlerts = False
+Dim objShell
+Set objShell = Wscript.CreateObject("WScript.Shell")
+objShell.Run path &"tools\trace.vbs"
+objShell.Run path &"tools\testcase.vbs"
+' Using Set is mandatory
+'Set objShell = Nothing
+'Set objExcel = Nothing
+objExcel.Application.Quit
